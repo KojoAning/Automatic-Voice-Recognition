@@ -36,7 +36,7 @@ We then trained the model with 10 epochs and achieved an accuracy of 100 within 
 After Trianing we saved the model so we can use it for prediction in the future
 
 
-# TESTING MODEL BY PASSING IN A VOICE FILE
+## TESTING MODEL BY PASSING IN A VOICE FILE
 To test our model we imported various dependencies such as 
 Opencv 
 tkinter
