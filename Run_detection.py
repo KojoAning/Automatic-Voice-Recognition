@@ -64,7 +64,7 @@ root.configure(bg="#000000")  # Set the background color of the window to black
 root.geometry(f"{window_width_pixels}x{window_height_pixels}")
 
 # Load and display the image
-image_path = r"C:\Users\ANING\Downloads\nn.jpg"
+image_path = r""
 image = Image.open(image_path)
 image = image.resize((500, 500))  # Adjust the size of the image as needed
 tk_image = ImageTk.PhotoImage(image)
