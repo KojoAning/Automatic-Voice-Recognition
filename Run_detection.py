@@ -1,6 +1,4 @@
  #import the necessary libraries
-import tkinter as tk
-from tkinter import filedialog,messagebox
 from PIL import Image, ImageTk
 import tensorflow as tf
 import cv2 as cv
