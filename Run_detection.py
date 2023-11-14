@@ -15,7 +15,7 @@ def process_audio(audio_path):
     D = librosa.amplitude_to_db(librosa.stft(audio), ref=np.max)
     # Save the spectrogram
     plt.figure(figsize=(10, 5))
-    plt.axis('off')
+    plt.axis("off")
     librosa.display.specshow(D, sr=fs, x_axis='time', y_axis='linear',cmap='viridis')
     plt.savefig('output.png', dpi=300, bbox_inches='tight', pad_inches=0,transparent=True)
 
