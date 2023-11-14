@@ -19,8 +19,7 @@ numpy
 matplotlib
 cv2 as cv
 librosa
-TKinter
-
+gradio
 
 This project aim was to use Convolutional neural networks to be able to classify voices of an individual amongst other voices 
 The data sets we  used were the LJSpeech dataset and the cvcorpus dataset.The LJspeech dataset contains a voice of a particular speaker whose voice was the main subject that we were using against the rest.
@@ -42,7 +41,7 @@ Opencv
 tkinter
 matplotlib 
 
-We then created a window using tkinter to prvide a GUI to be able for users to upload their voice files 
+We then created a wen-gui using graio to prvide a GUI to be able for users to upload their voice files 
 We then converted the voice file using the librosa library to get the spectrogram image 
 then after we preprocessed the spectrogram image
 After preprocessing we use tensorflow to load the model we saved earlier and then use the loaded model to predict the preprocessed image 

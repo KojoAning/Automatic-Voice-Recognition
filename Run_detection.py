@@ -8,74 +8,42 @@ import matplotlib.pyplot as plt
 import numpy as np
 import librosa.display
 import librosa
+import gradio as gr
+from scipy.io.wavfile import write
 
-#function to process the audio file
+#function to process audio file
 def process_audio(audio_path):
     audio, fs = librosa.load(audio_path)
     D = librosa.amplitude_to_db(librosa.stft(audio), ref=np.max)
     # Save the spectrogram
     plt.figure(figsize=(10, 5))
-    plt.axis("off")
+    plt.axis('off')
     librosa.display.specshow(D, sr=fs, x_axis='time', y_axis='linear',cmap='viridis')
     plt.savefig('output.png', dpi=300, bbox_inches='tight', pad_inches=0,transparent=True)
 
-def predict():
-    messagebox.showinfo("Processing Result","Processing")                    #show dialog box to indicate start of processing
-    img = cv.imread("output.png")                                            #read image
-    img = cv.resize(img,(300,300))                                           #resize image 
-    img = cv.cvtColor(img,cv.COLOR_BGR2GRAY)                                 #convert images to gray
-    img = np.expand_dims(img,0)                                              #expand image dimension to match that of the input layer to the NN
+
+def predict():                 
+    img = cv.imread("output.png")                                            
+    img = cv.resize(img,(300,300))                                           
+    img = cv.cvtColor(img,cv.COLOR_BGR2GRAY)                                 
+    img = np.expand_dims(img,0)                                              
     img = np.expand_dims(img,-1)
-    final_model = tf.keras.models.load_model('my_model.h5')                           #Load tensorflow model
-    prediction = final_model.predict(img)                                                     #predict model
-    prediction = int(prediction[0][0])                                                       #get index of the predicted class
-    # print(bb)f
-    if prediction == 0:
-        messagebox.showinfo("Processing Result Press ok to Continue", "Voice Does not Match!")
+    final_model = tf.keras.models.load_model('my_model.h5')                           
+    prediction = final_model.predict(img)                                             
+    prediction = int(prediction[0][0])                                                
+
+    if prediction == 1:
+        return "voice matched"
     else:
-        messagebox.showinfo("Processing Result Press ok to Continue", "Voice Matched")
+        return "voice did not match"
 
-#function to load audio file and get prediction
-def browse_audio_file():
-    audio_path = filedialog.askopenfilename(filetypes=[("Audio files", "*.wav;*.mp3")])
-    if audio_path:
-        process_audio(audio_path)
-        predict()
+def final(audio_path):
+    sample_rate, audio_data = audio_path
+    output_file = "processed_audio.wav"
+    write(output_file, sample_rate, np.array(audio_data, dtype=np.int16))
+    process_audio("processed_audio.wav")
+    result = predict()
+    return result
 
-#convert inches to puxels for easy computation of window size
-def inches_to_pixels(inches):
-    dpi = 96
-    pixels = inches * dpi
-    return int(pixels)
-
-
-# Set the window size in inches (approximately 12 x 8 inches)
-window_width_inches = 5
-window_height_inches = 5
-window_width_pixels = inches_to_pixels(window_width_inches)
-window_height_pixels = inches_to_pixels(window_height_inches)
-
-# Set the window size in pixels
-
-# Create the main window
-root = tk.Tk()
-root.title("Audio File Processor")
-root.configure(bg="#000000")  # Set the background color of the window to black
-root.geometry(f"{window_width_pixels}x{window_height_pixels}")
-
-# Load and display the image
-image_path = r""
-image = Image.open(image_path)
-image = image.resize((500, 500))  # Adjust the size of the image as needed
-tk_image = ImageTk.PhotoImage(image)
-image_label = tk.Label(root, image=tk_image, bg="black")  # Set the background color of the image label to black
-image_label.pack(pady=20)
-
-# Create a button to browse and select an audio file
-browse_button = tk.Button(root, text="Browse Audio File", command=browse_audio_file, bg="black", fg="white")  # Set the button colors
-browse_button.pack(pady=10)
-browse_button.place(relx=0.5, rely=0.95, anchor=tk.CENTER)
-
-# Run the main event loop
-root.mainloop()
- 
+demo = gr.Interface(final,'audio','text')
+demo.launch()
