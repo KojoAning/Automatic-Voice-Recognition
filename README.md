@@ -1,6 +1,8 @@
 # Automatic-Voice-Recognition
 Implementation of Deep Learning to Perform Speaker Recognition.
 
+## Since gradio only accepts wav files as inputs you would need to convert the mp3 files to ones acceptable by gradio. In order to use mp3 files for testing please make sure you have ffmpeg installed and added to your path.You can find tutorials on how to do that here https://phoenixnap.com/kb/ffmpeg-windows
+
 Speaker recognition is the process of automatically recognizing who is speaking 
 on the basis of individual information included in speech waves. This 
 technique makes it possible to use the speaker's voice to verify their identity 
@@ -47,3 +49,4 @@ then after we preprocessed the spectrogram image
 After preprocessing we use tensorflow to load the model we saved earlier and then use the loaded model to predict the preprocessed image 
 After prediction the model generates a 1 or a zero to indicate if the voice file matches the one we trained or not
 the prediction is then seen on the gui as a diaglouge message "voice matched" or "voice does not match" based on the output of the prediction.
+
