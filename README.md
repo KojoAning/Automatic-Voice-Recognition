@@ -1,7 +1,7 @@
 # Automatic-Voice-Recognition
 Implementation of Deep Learning to Perform Speaker Recognition.
 
-## Since gradio only accepts wav files as inputs you would need to convert the mp3 files to ones acceptable by gradio. In order to use mp3 files for testing please make sure you have ffmpeg installed and added to your path.You can find tutorials on how to do that here https://phoenixnap.com/kb/ffmpeg-windows
+## Note to Users: Since gradio only accepts wav files as inputs you would need to convert the mp3 files to ones acceptable by gradio. In order to use mp3 files for testing please make sure you have ffmpeg installed and added to your path.You can find tutorials on how to do that here https://phoenixnap.com/kb/ffmpeg-windows
 
 Speaker recognition is the process of automatically recognizing who is speaking 
 on the basis of individual information included in speech waves. This 
